@@ -1,8 +1,9 @@
 package br.com.zecodechallange.app.partner.valueObject;
 
-import java.util.List;
-
+import br.com.zecodechallange.app.exception.ApplicationException;
 import br.com.zecodechallange.app.partner.model.MultiPolygon;
+import br.com.zecodechallange.app.partner.model.Point;
+import br.com.zecodechallange.app.partner.model.Polygon;
 import br.com.zecodechallange.app.partner.model.enums.GeoJsonType;
 
 public record CoverageArea(
@@ -10,22 +11,30 @@ public record CoverageArea(
     MultiPolygon coordinates) {
 
         public void validate() {
-            if (type() == null || !GeoJsonType.MULTIPOLYGON.getValue().equals(type())) {
-                throw new IllegalArgumentException("The type specified for the address is invalid. Only MultiPolygon type is available");
-            }
+            validateType();
+            validateMultipolygonElements();
+            validatePoints();
+        }
 
+        private void validateType() {
+            if (!GeoJsonType.MULTIPOLYGON.getValue().equals(type())) {
+                throw new ApplicationException("The type specified for the coverage area is invalid. Only MultiPolygon type is available");
+            }
+        }
+
+        private void validateMultipolygonElements() {
             if (coordinates() == null || coordinates().isEmpty()) {
-                throw new IllegalArgumentException("The multipolygon must have elements");
+                throw new ApplicationException("The coverage area coordinates must have elements");
             }
 
-            for (var polygon: coordinates()) {
-                for (var points: polygon) {
-                    for (var point: points) {
-                       point.validate();
-                    }
+            coordinates.forEach(Polygon::validate);
+        }
 
-                }
-              
-            }
+        private void validatePoints() {
+            coordinates().forEach(polygon -> 
+                polygon.forEach(points -> 
+                    points.forEach(Point::validate)
+                )
+            );
         }
     }

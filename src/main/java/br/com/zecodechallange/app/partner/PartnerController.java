@@ -29,7 +29,6 @@ import lombok.RequiredArgsConstructor;
 public class PartnerController {
     
     private final PartnerFacade partnerFacade;
-
     
     @GetMapping
     public ResponseEntity<ResponseResult<List<Partner>>> get(final PaginationParams paginationParams) {
