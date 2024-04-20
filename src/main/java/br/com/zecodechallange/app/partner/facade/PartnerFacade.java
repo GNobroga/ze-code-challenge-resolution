@@ -10,6 +10,7 @@ import br.com.zecodechallange.app.partner.command.CreatePartnerCommand;
 import br.com.zecodechallange.app.partner.command.FindNearestPartnerCommand;
 import br.com.zecodechallange.app.partner.command.RetrievePartnerCommand;
 import br.com.zecodechallange.app.partner.command.RetrievePartnersCommand;
+import br.com.zecodechallange.app.partner.command.UpdatePartnerCommand;
 import br.com.zecodechallange.app.partner.command.DeletePartnerCommand;
 import br.com.zecodechallange.app.partner.dto.PartnerRequestDTO;
 import br.com.zecodechallange.app.partner.entity.Partner;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class PartnerFacade {
     
     private final CreatePartnerCommand createPartnerCommand;
+    private final UpdatePartnerCommand updatePartnerCommand;
     private final RetrievePartnersCommand retrievePartnersCommand;
     private final RetrievePartnerCommand retrievePartnerCommand;
     private final DeletePartnerCommand deletePartnerCommand;
@@ -29,6 +31,10 @@ public class PartnerFacade {
 
     public Partner create(PartnerRequestDTO record) {
         return createPartnerCommand.execute(record);
+    }
+
+    public void update(Long id, PartnerRequestDTO source) {
+        updatePartnerCommand.execute(id, source);
     }
 
     public Partner retrieve(Long id) {

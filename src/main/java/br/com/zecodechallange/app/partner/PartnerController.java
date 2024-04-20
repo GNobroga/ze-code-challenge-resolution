@@ -3,11 +3,13 @@ package br.com.zecodechallange.app.partner;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +36,7 @@ public class PartnerController {
     public ResponseEntity<ResponseResult<List<Partner>>> get(final PaginationParams paginationParams) {
         final var page = partnerFacade.retrieve(paginationParams.getPageable());
         final var response = ResponseResult.<List<Partner>>builder()
-        .page(page.getTotalPages())
+        .page(page.getNumber())
         .size(page.getSize())
         .totalElements(page.getNumberOfElements())
         .result(page.getContent())
@@ -42,9 +44,8 @@ public class PartnerController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/nearest")
+    @GetMapping("/search")
     public ResponseEntity<ResponseResult<List<Partner>>> get(@RequestParam final Map<String, String> params)  {
-        System.out.println(params.size());
         final var result = partnerFacade.findNearest(new CoordinatesParam(params));
         final var response = ResponseResult.<List<Partner>>builder()
         .result(result)
@@ -68,6 +69,12 @@ public class PartnerController {
             .result(partner)
             .build();
         return ResponseEntity.created(uriComponents.toUri()).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> post(@PathVariable("id") Long id, @RequestBody @Valid final PartnerRequestDTO record) {
+        partnerFacade.update(id, record);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

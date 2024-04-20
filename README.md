@@ -58,9 +58,11 @@ A aplicação fornece os seguintes endpoints:
 
 - `GET /partners/{id}`: Retorna as informações de um parceiro específico com o ID fornecido.
 
+- `PUT /partners/{id}`: Atualiza as informações de um parceiro existente com o ID fornecido.
+
 - `DELETE /partners/{id}`: Exclui um parceiro existente com o ID fornecido.
 
-- `GET /partners/search?latitude={latitude}&longitude={longitude}`: Busca parceiros com base em uma determinada localização geográfica, representada pelas coordenadas de latitude e longitude fornecidas.
+- `GET /partners/search?lat={latitude}&long={longitude}`: Busca parceiros com base em uma determinada localização geográfica, representada pelas coordenadas de latitude e longitude fornecidas.
 
 - `GET /partners?size=10&page=1&sort=-field1,field2`: Retorna uma lista paginada de parceiros, onde `size` define o número de registros por página, `page` especifica a página desejada e `sort` permite ordenar os resultados com base em um ou mais campos, sendo `-` para ordem descendente e nenhum prefixo ou `+` para ordem ascendente.
 

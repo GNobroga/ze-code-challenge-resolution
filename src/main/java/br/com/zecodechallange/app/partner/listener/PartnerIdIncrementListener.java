@@ -22,7 +22,10 @@ public class PartnerIdIncrementListener extends AbstractMongoEventListener<Partn
     
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Partner> event) {
-        event.getSource().setId(generateSequence(Partner.SEQUENCE_NAME));
+        final Partner partner = event.getSource();
+        if (partner.getId() == null) {
+            event.getSource().setId(generateSequence(Partner.SEQUENCE_NAME));
+        }
     }
 
     public long generateSequence(String seqName) {
