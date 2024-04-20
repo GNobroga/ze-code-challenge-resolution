@@ -12,7 +12,7 @@ public class RetrievePartnerCommand {
     
     private final PartnerRepository repository;
     
-    public Partner execute(String id) {
+    public Partner execute(Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Partner not found"));
     }
 }

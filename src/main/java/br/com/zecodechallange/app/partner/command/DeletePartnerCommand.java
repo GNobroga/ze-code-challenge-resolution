@@ -13,7 +13,7 @@ public class DeletePartnerCommand {
 
     private final PartnerRepository repository;
 
-    public void execute(String id) {
+    public void execute(Long id) {
         repository.deleteById(Objects.requireNonNull(id));
     }
 }

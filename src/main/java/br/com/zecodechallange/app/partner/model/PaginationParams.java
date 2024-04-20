@@ -18,7 +18,7 @@ public class PaginationParams {
 
     private final static int MAX_SIZE = 1000;
     
-    private int size;
+    private int size = 100;
 
     private int page;
 

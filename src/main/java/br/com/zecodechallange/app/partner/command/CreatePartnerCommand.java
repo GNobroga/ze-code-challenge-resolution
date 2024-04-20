@@ -17,6 +17,9 @@ public class CreatePartnerCommand {
     private final ModelMapper modelMapper;
     
     public Partner execute(PartnerRequestDTO record) {
+
+        record.getAddress().validate();
+        record.getCoverageArea().validate();
         
         if (repository.existsByDocument(record.getDocument())) {
             throw new IllegalArgumentException("The document is already being used");
