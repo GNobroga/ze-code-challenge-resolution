@@ -16,16 +16,7 @@ public record Address(
                 throw new IllegalArgumentException("The address coordinate must only have two values");
             }
 
-            Double longitude = coordinates.getLongitude();
-            Double latitude = coordinates.getLatitude();
-
-            if (longitude < -180D ||  longitude > 180) {
-                throw new IllegalArgumentException("Longitude cannot be less than -180 and greater than 180");
-            }
-
-            if (latitude < -90D ||  latitude > 90) {
-                throw new IllegalArgumentException("Latitude cannot be less than -90 and greater than 90");
-            }
+            coordinates.validate();
         }
 
 }

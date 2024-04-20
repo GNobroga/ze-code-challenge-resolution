@@ -21,19 +21,7 @@ public record CoverageArea(
             for (var polygon: coordinates()) {
                 for (var points: polygon) {
                     for (var point: points) {
-                        if (point.size() != 2) {
-                            throw new IllegalArgumentException("Longitude and latitude are required at each point of the polygon");
-                        } 
-                        Double longitude = point.getLongitude();
-                        Double latitude = point.getLatitude();
-            
-                        if (longitude < -180D ||  longitude > 180) {
-                            throw new IllegalArgumentException("Longitude cannot be less than -180 and greater than 180");
-                        }
-            
-                        if (latitude < -90D ||  latitude > 90) {
-                            throw new IllegalArgumentException("Latitude cannot be less than -90 and greater than 90");
-                        }
+                       point.validate();
                     }
 
                 }
