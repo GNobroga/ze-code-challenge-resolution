@@ -111,7 +111,7 @@ Saída:
     },
     "address": {
       "type": "Point",
-      "coordinates": [-47.57421, -22.785741]
+      "coordinates": [30, 20]
     }
   }
 }
