@@ -56,6 +56,68 @@ A aplicação fornece os seguintes endpoints:
 
 - `POST /partners`: Cria um novo parceiro.
 
+
+Entrada:
+
+```json
+{
+    "tradingName": "Lojinha do Biel",
+    "ownerName": "Gabriel Cardoso",
+    "document": "1432132123891/1111",
+    "coverageArea": { 
+        "type": "MultiPolygon", 
+        "coordinates": [
+        [[[30, 20], [45, 40], [10, 40], [30, 20]]], 
+        [[[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]]
+        ]
+    },
+    "address": { 
+        "type": "Point",
+        "coordinates": [-47.57421, -22.785741]
+    }
+}
+```
+
+Saída:
+
+```json
+{
+  "result": {
+    "id": 54,
+    "tradingName": "Lojinha do Biel",
+    "ownerName": "Gabriel Cardoso",
+    "document": "1432132123891/1111",
+    "coverageArea": {
+      "type": "MultiPolygon",
+      "coordinates": [
+        [
+          [
+            [30.0, 20.0],
+            [45.0, 40.0],
+            [10.0, 40.0],
+            [30.0, 20.0]
+          ]
+        ],
+        [
+          [
+            [15.0, 5.0],
+            [40.0, 10.0],
+            [10.0, 20.0],
+            [5.0, 10.0],
+            [15.0, 5.0]
+          ]
+        ]
+      ]
+    },
+    "address": {
+      "type": "Point",
+      "coordinates": [-47.57421, -22.785741]
+    }
+  }
+}
+
+```
+
 - `GET /partners/{id}`: Retorna as informações de um parceiro específico com o ID fornecido.
 
 - `PUT /partners/{id}`: Atualiza as informações de um parceiro existente com o ID fornecido.
